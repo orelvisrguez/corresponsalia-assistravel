@@ -41,3 +41,11 @@ export const ESTADO_CASO_COLORS: Record<string, string> = {
   "Para refacturar": "bg-orange-100 text-orange-800 border-orange-200",
   Cobrado: "bg-emerald-100 text-emerald-800 border-emerald-200",
 };
+
+export const ESTADO_CASO_ROW_COLORS: Record<string, string> = {
+  "No Fee": "bg-slate-50",
+  "On Going": "bg-blue-50/70",
+  Refacturado: "bg-purple-50/70",
+  "Para refacturar": "bg-orange-50/70",
+  Cobrado: "bg-emerald-50/70",
+};

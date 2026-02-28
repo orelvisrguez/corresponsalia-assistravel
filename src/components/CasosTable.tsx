@@ -6,6 +6,7 @@ import type { Caso } from "@/db/schema";
 import {
   ESTADO_INTERNO_COLORS,
   ESTADO_CASO_COLORS,
+  ESTADO_CASO_ROW_COLORS,
   ESTADOS_INTERNOS,
   ESTADOS_CASO,
 } from "@/lib/validations";
@@ -315,7 +316,7 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
                 filtered.map((caso) => (
                   <tr
                     key={caso.id}
-                    className="hover:bg-gray-50 transition-colors group"
+                    className={`transition-colors group ${ESTADO_CASO_ROW_COLORS[caso.estadoCaso || ""] || ""} ${!caso.estadoCaso ? "hover:bg-gray-50" : ""}`}
                   >
                     <td className="px-4 py-3 font-mono text-xs text-gray-500 font-medium">
                       #{caso.id}
