@@ -74,6 +74,18 @@ function formatCurrency(value: number | null, symbol?: string | null) {
   return `${symbol || "$"} ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
+function formatUsd(value: number | null) {
+  if (value === null || value === undefined) return "—";
+  return `USD ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function calculateTotalUsd(caso: typeof casos.$inferSelect) {
+  const fee = caso.fee ?? 0;
+  const costo = caso.costoUsd ?? 0;
+  const monto = caso.montoAgregado ?? 0;
+  return fee + costo + monto;
+}
+
 export default async function CasoDetailPage({ params }: PageProps) {
   const { id } = await params;
   const casoId = parseInt(id, 10);
@@ -147,10 +159,16 @@ export default async function CasoDetailPage({ params }: PageProps) {
           </h3>
         </div>
         <dl className="p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          <Field label="Fee" value={formatCurrency(caso.fee)} />
-          <Field label="Costo USD" value={formatCurrency(caso.costoUsd, "USD")} />
-          <Field label="Monto Agregado" value={formatCurrency(caso.montoAgregado)} />
-          <Field label="Costo Moneda Local" value={formatCurrency(caso.costoMonedaLocal, caso.simboloMoneda)} />
+          <Field label="Fee (USD)" value={formatUsd(caso.fee)} mono />
+          <Field label="Costo (USD)" value={formatUsd(caso.costoUsd)} mono />
+          <Field label="Monto Agregado (USD)" value={formatUsd(caso.montoAgregado)} mono />
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <dt className="text-xs font-medium text-green-600 uppercase tracking-wide">Total USD</dt>
+            <dd className="mt-1 text-xl font-bold text-green-700 font-mono">
+              ${calculateTotalUsd(caso).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </dd>
+          </div>
+          <Field label="Costo Moneda Local" value={formatCurrency(caso.costoMonedaLocal, caso.simboloMoneda)} mono />
           <Field label="Símbolo Moneda" value={caso.simboloMoneda} />
         </dl>
       </div>

@@ -62,6 +62,12 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
 
   const tieneFactura = watch("tieneFactura");
 
+  // Calculate total USD
+  const fee = watch("fee") ?? 0;
+  const costoUsd = watch("costoUsd") ?? 0;
+  const montoAgregado = watch("montoAgregado") ?? 0;
+  const totalUsd = fee + costoUsd + montoAgregado;
+
   const onSubmit = async (data: CasoFormData) => {
     setSubmitting(true);
     setError(null);
@@ -202,7 +208,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
         </div>
         <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <div>
-            <label className={labelClass}>Fee</label>
+            <label className={labelClass}>Fee <span className="text-green-600 font-medium">(USD)</span></label>
             <input
               type="number"
               step="0.01"
@@ -213,7 +219,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
           </div>
 
           <div>
-            <label className={labelClass}>Costo USD</label>
+            <label className={labelClass}>Costo <span className="text-green-600 font-medium">(USD)</span></label>
             <input
               type="number"
               step="0.01"
@@ -224,7 +230,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
           </div>
 
           <div>
-            <label className={labelClass}>Monto Agregado</label>
+            <label className={labelClass}>Monto Agregado <span className="text-green-600 font-medium">(USD)</span></label>
             <input
               type="number"
               step="0.01"
@@ -234,8 +240,17 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
             />
           </div>
 
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-green-800">Total USD</span>
+              <span className="text-lg font-bold text-green-700">
+                ${totalUsd.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+            </div>
+          </div>
+
           <div>
-            <label className={labelClass}>Costo Moneda Local</label>
+            <label className={labelClass}>Costo Moneda Local <span className="text-gray-400 text-xs">(referencia)</span></label>
             <input
               type="number"
               step="0.01"
@@ -246,7 +261,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
           </div>
 
           <div>
-            <label className={labelClass}>Símbolo Moneda</label>
+            <label className={labelClass}>Símbolo Moneda <span className="text-gray-400 text-xs">(ej: ARS, BRL, CLP)</span></label>
             <input
               {...register("simboloMoneda")}
               className={inputClass()}

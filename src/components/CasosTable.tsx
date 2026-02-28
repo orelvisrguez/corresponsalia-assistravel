@@ -158,6 +158,18 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
     return `${symbol || "$"} ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
+  const formatUsd = (value: number | null) => {
+    if (value === null || value === undefined) return "—";
+    return `USD ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
+
+  const calculateTotalUsd = (caso: Caso) => {
+    const fee = caso.fee ?? 0;
+    const costo = caso.costoUsd ?? 0;
+    const monto = caso.montoAgregado ?? 0;
+    return fee + costo + monto;
+  };
+
   const formatDate = (date: string | null) => {
     if (!date) return "—";
     try {
@@ -272,7 +284,7 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
                     onClick={() => handleSort("costoUsd")}
                     className="flex items-center gap-1.5 hover:text-blue-600 transition-colors ml-auto"
                   >
-                    Costo USD <SortIcon field="costoUsd" />
+                    Total USD <SortIcon field="costoUsd" />
                   </button>
                 </th>
                 <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
@@ -339,7 +351,7 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
                       {caso.pais || "—"}
                     </td>
                     <td className="px-4 py-3 text-right font-medium text-gray-900 whitespace-nowrap">
-                      {formatCurrency(caso.costoUsd, "USD")}
+                      {formatUsd(calculateTotalUsd(caso))}
                     </td>
                     <td className="px-4 py-3">
                       {caso.estadoInterno ? (
