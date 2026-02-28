@@ -164,9 +164,9 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
   };
 
   const calculateTotalUsd = (caso: Caso) => {
-    const fee = caso.fee ?? 0;
-    const costo = caso.costoUsd ?? 0;
-    const monto = caso.montoAgregado ?? 0;
+    const fee = Number(caso.fee) || 0;
+    const costo = Number(caso.costoUsd) || 0;
+    const monto = Number(caso.montoAgregado) || 0;
     return fee + costo + monto;
   };
 

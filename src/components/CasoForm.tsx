@@ -62,10 +62,10 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
 
   const tieneFactura = watch("tieneFactura");
 
-  // Calculate total USD
-  const fee = watch("fee") ?? 0;
-  const costoUsd = watch("costoUsd") ?? 0;
-  const montoAgregado = watch("montoAgregado") ?? 0;
+  // Calculate total USD - convert to numbers to avoid string concatenation
+  const fee = Number(watch("fee")) || 0;
+  const costoUsd = Number(watch("costoUsd")) || 0;
+  const montoAgregado = Number(watch("montoAgregado")) || 0;
   const totalUsd = fee + costoUsd + montoAgregado;
 
   const onSubmit = async (data: CasoFormData) => {
