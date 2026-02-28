@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { compare } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import { createSession, setSessionCookie } from "@/lib/auth";
 import { z } from "zod";
 
@@ -16,16 +16,33 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validated = loginSchema.parse(body);
 
-    const [user] = await db
+    let [user] = await db
       .select()
       .from(users)
       .where(eq(users.email, validated.email.toLowerCase()));
 
+    // Auto-create admin user if no users exist
     if (!user) {
-      return NextResponse.json(
-        { error: "Credenciales inválidas" },
-        { status: 401 }
-      );
+      const allUsers = await db.select().from(users);
+      if (allUsers.length === 0 && validated.email.toLowerCase() === "admin@assistravel.com") {
+        const hashedPassword = await hash(validated.password, 12);
+        const [newUser] = await db
+          .insert(users)
+          .values({
+            name: "Administrador",
+            email: validated.email.toLowerCase(),
+            password: hashedPassword,
+            role: "Administrador",
+            active: true,
+          })
+          .returning();
+        user = newUser;
+      } else {
+        return NextResponse.json(
+          { error: "Credenciales inválidas" },
+          { status: 401 }
+        );
+      }
     }
 
     if (!user.active) {

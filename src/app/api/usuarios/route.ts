@@ -43,8 +43,12 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    // Allow creating first user without auth (for initial setup)
+    const allUsers = await db.select().from(users);
+    const isFirstUser = allUsers.length === 0;
+    
     const session = await getSession();
-    if (!session || session.role !== "Administrador") {
+    if (!isFirstUser && (!session || session.role !== "Administrador")) {
       return NextResponse.json({ error: "No autorizado" }, { status: 403 });
     }
 
