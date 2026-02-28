@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Next.js Template",
-  description: "A minimal Next.js starter template",
+  title: "Assistravel - Gestión de Casos",
+  description: "Sistema de gestión de casos médicos y corresponsales",
 };
 
 export default function RootLayout({
@@ -23,11 +13,55 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="es">
+      <body className="min-h-screen bg-gray-50 antialiased">
+        <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
+          <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="text-lg font-bold text-gray-900 leading-tight">Assistravel</h1>
+                  <p className="text-xs text-gray-500 leading-tight">Gestión de Casos</p>
+                </div>
+              </div>
+              <nav className="flex items-center gap-1">
+                <Link
+                  href="/"
+                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  </svg>
+                  <span className="hidden sm:inline">Casos</span>
+                </Link>
+                <Link
+                  href="/casos/nuevo"
+                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span className="hidden sm:inline">Nuevo Caso</span>
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </header>
+        <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {children}
+        </main>
+        <footer className="border-t border-gray-200 bg-white mt-auto">
+          <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <p className="text-center text-xs text-gray-400">
+              © {new Date().getFullYear()} Assistravel · Sistema de Gestión de Casos
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );

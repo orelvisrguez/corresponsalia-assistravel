@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Template Status**: ✅ Full CRUD Application - Assistravel Case Management
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+The application is a complete CRUD system for managing medical/insurance cases (casos) with corresponsales. Built with Next.js 16, TypeScript, Tailwind CSS 4, Drizzle ORM + SQLite.
 
 ## Recently Completed
 
@@ -14,74 +14,46 @@ The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. I
 - [x] ESLint configuration
 - [x] Memory bank documentation
 - [x] Recipe system for common features
+- [x] Full CRUD application for case management (casos)
+- [x] Database schema with 22 fields for casos table
+- [x] REST API routes (GET, POST, PUT, DELETE) at /api/casos
+- [x] Cases list page with search, filter, sort
+- [x] Stats dashboard cards
+- [x] Case detail view page
+- [x] Case create/edit form with validation
+- [x] Delete confirmation modal
+- [x] Responsive design with Tailwind CSS
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
+| `src/app/page.tsx` | Home page - cases list | ✅ Ready |
+| `src/app/layout.tsx` | Root layout with nav | ✅ Ready |
 | `src/app/globals.css` | Global styles | ✅ Ready |
+| `src/app/casos/nuevo/page.tsx` | Create new case | ✅ Ready |
+| `src/app/casos/[id]/page.tsx` | Case detail view | ✅ Ready |
+| `src/app/casos/[id]/editar/page.tsx` | Edit case | ✅ Ready |
+| `src/app/api/casos/route.ts` | GET all, POST | ✅ Ready |
+| `src/app/api/casos/[id]/route.ts` | GET one, PUT, DELETE | ✅ Ready |
+| `src/db/schema.ts` | Drizzle schema - casos table | ✅ Ready |
+| `src/db/index.ts` | Database client | ✅ Ready |
+| `src/db/migrate.ts` | Migration runner | ✅ Ready |
+| `src/lib/validations.ts` | Zod schema + constants | ✅ Ready |
+| `src/components/CasosTable.tsx` | Table with search/filter/sort | ✅ Ready |
+| `src/components/CasoForm.tsx` | Create/edit form | ✅ Ready |
+| `src/components/StatsCards.tsx` | Dashboard stats | ✅ Ready |
+| `src/components/DeleteModal.tsx` | Delete confirmation | ✅ Ready |
+| `src/components/CasoDetailActions.tsx` | Edit/delete buttons | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
-## Current Focus
+## Database Schema - casos table
 
-The template is ready. Next steps depend on user requirements:
-
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
-
-## Quick Start Guide
-
-### To add a new page:
-
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
-
-### To add components:
-
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
-
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+Fields: id, corresponsal, nroCasoAssistravel, nroCasoCorresponsal, fechaInicio, pais, fee, costoUsd, montoAgregado, costoMonedaLocal, simboloMoneda, informeMedico, tieneFactura, fechaEmisionFactura, fechaVencimientoFactura, fechaPagoFactura, nroFactura, estadoInterno (Abierto/Cerrado/Pausado/Cancelado), estadoCaso (No Fee/On Going/Refacturado/Para refacturar/Cobrado), observaciones, createdAt, updatedAt
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
 | Initial | Template created with base setup |
+| 2026-02-28 | Full CRUD application for Assistravel case management |
