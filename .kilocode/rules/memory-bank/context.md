@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Template Status**: ✅ Full CRUD Application - Assistravel Case Management
+**Template Status**: ✅ Full CRUD Application with Authentication - Assistravel Case Management
 
-The application is a complete CRUD system for managing medical/insurance cases (casos) with corresponsales. Built with Next.js 16, TypeScript, Tailwind CSS 4, Drizzle ORM + SQLite.
+The application is a complete CRUD system for managing medical/insurance cases (casos) with corresponsales, plus a full authentication and user management system. Built with Next.js 16, TypeScript, Tailwind CSS 4, Drizzle ORM + SQLite, bcryptjs + jose JWT.
 
 ## Recently Completed
 
@@ -23,33 +23,67 @@ The application is a complete CRUD system for managing medical/insurance cases (
 - [x] Case create/edit form with validation
 - [x] Delete confirmation modal
 - [x] Responsive design with Tailwind CSS
+- [x] Authentication system with JWT (bcryptjs + jose)
+- [x] Users table with roles (Administrador, Corresponsal)
+- [x] Login page with form
+- [x] Auth API routes (POST /api/auth/login, POST /api/auth/logout)
+- [x] Middleware for route protection
+- [x] User management module (admin only) at /admin/usuarios
+- [x] User CRUD API routes at /api/usuarios
+- [x] UserMenu component with logout and role display
+- [x] Seed script for default admin user
+- [x] Role-based access control
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
 | `src/app/page.tsx` | Home page - cases list | ✅ Ready |
-| `src/app/layout.tsx` | Root layout with nav | ✅ Ready |
+| `src/app/layout.tsx` | Root layout with nav + UserMenu | ✅ Ready |
 | `src/app/globals.css` | Global styles | ✅ Ready |
+| `src/app/login/page.tsx` | Login page | ✅ Ready |
 | `src/app/casos/nuevo/page.tsx` | Create new case | ✅ Ready |
 | `src/app/casos/[id]/page.tsx` | Case detail view | ✅ Ready |
 | `src/app/casos/[id]/editar/page.tsx` | Edit case | ✅ Ready |
+| `src/app/admin/usuarios/page.tsx` | Users list (admin only) | ✅ Ready |
+| `src/app/admin/usuarios/nuevo/page.tsx` | Create user (admin only) | ✅ Ready |
+| `src/app/admin/usuarios/[id]/editar/page.tsx` | Edit user (admin only) | ✅ Ready |
 | `src/app/api/casos/route.ts` | GET all, POST | ✅ Ready |
 | `src/app/api/casos/[id]/route.ts` | GET one, PUT, DELETE | ✅ Ready |
-| `src/db/schema.ts` | Drizzle schema - casos table | ✅ Ready |
+| `src/app/api/auth/login/route.ts` | POST login | ✅ Ready |
+| `src/app/api/auth/logout/route.ts` | POST logout | ✅ Ready |
+| `src/app/api/usuarios/route.ts` | GET all, POST users | ✅ Ready |
+| `src/app/api/usuarios/[id]/route.ts` | GET, PUT, DELETE user | ✅ Ready |
+| `src/db/schema.ts` | Drizzle schema - casos + users tables | ✅ Ready |
 | `src/db/index.ts` | Database client | ✅ Ready |
 | `src/db/migrate.ts` | Migration runner | ✅ Ready |
+| `src/db/seed.ts` | Seed admin user | ✅ Ready |
 | `src/lib/validations.ts` | Zod schema + constants | ✅ Ready |
+| `src/lib/auth.ts` | JWT auth utilities | ✅ Ready |
+| `src/middleware.ts` | Route protection middleware | ✅ Ready |
 | `src/components/CasosTable.tsx` | Table with search/filter/sort | ✅ Ready |
 | `src/components/CasoForm.tsx` | Create/edit form | ✅ Ready |
 | `src/components/StatsCards.tsx` | Dashboard stats | ✅ Ready |
 | `src/components/DeleteModal.tsx` | Delete confirmation | ✅ Ready |
 | `src/components/CasoDetailActions.tsx` | Edit/delete buttons | ✅ Ready |
+| `src/components/LoginForm.tsx` | Login form | ✅ Ready |
+| `src/components/UserMenu.tsx` | User dropdown menu | ✅ Ready |
+| `src/components/UsuariosTable.tsx` | Users table | ✅ Ready |
+| `src/components/UsuarioForm.tsx` | Create/edit user form | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
-## Database Schema - casos table
+## Database Schema
 
+### casos table
 Fields: id, corresponsal, nroCasoAssistravel, nroCasoCorresponsal, fechaInicio, pais, fee, costoUsd, montoAgregado, costoMonedaLocal, simboloMoneda, informeMedico, tieneFactura, fechaEmisionFactura, fechaVencimientoFactura, fechaPagoFactura, nroFactura, estadoInterno (Abierto/Cerrado/Pausado/Cancelado), estadoCaso (No Fee/On Going/Refacturado/Para refacturar/Cobrado), observaciones, createdAt, updatedAt
+
+### users table
+Fields: id, name, email, password (hashed), role (Administrador/Corresponsal), active, createdAt, updatedAt
+
+## Default Admin User
+- Email: admin@assistravel.com
+- Password: Admin123!
+- Role: Administrador
 
 ## Session History
 
@@ -57,3 +91,4 @@ Fields: id, corresponsal, nroCasoAssistravel, nroCasoCorresponsal, fechaInicio, 
 |------|---------|
 | Initial | Template created with base setup |
 | 2026-02-28 | Full CRUD application for Assistravel case management |
+| 2026-02-28 | Authentication system + user management module |
