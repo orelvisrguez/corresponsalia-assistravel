@@ -40,6 +40,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 - [x] Admin pages for managing corresponsales at /admin/corresponsales
 - [x] CasoForm now uses dropdown with active corresponsales
 - [x] Country dropdown with flag emojis in forms and tables
+- [x] Case registration info block (createdBy, updatedBy, createdAt, updatedAt)
 
 ## Current Structure
 
@@ -86,7 +87,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 ## Database Schema
 
 ### casos table
-Fields: id, corresponsal, nroCasoAssistravel, nroCasoCorresponsal, fechaInicio, pais, fee, costoUsd, montoAgregado, costoMonedaLocal, simboloMoneda, informeMedico, tieneFactura, fechaEmisionFactura, fechaVencimientoFactura, fechaPagoFactura, nroFactura, estadoInterno (Abierto/Cerrado/Pausado/Cancelado), estadoCaso (No Fee/On Going/Refacturado/Para refacturar/Cobrado), observaciones, createdAt, updatedAt
+Fields: id, corresponsal, nroCasoAssistravel, nroCasoCorresponsal, fechaInicio, pais, fee, costoUsd, montoAgregado, costoMonedaLocal, simboloMoneda, informeMedico, tieneFactura, fechaEmisionFactura, fechaVencimientoFactura, fechaPagoFactura, nroFactura, estadoInterno (Abierto/Cerrado/Pausado/Cancelado), estadoCaso (No Fee/On Going/Refacturado/Para refacturar/Cobrado), observaciones, createdBy, updatedBy, createdAt, updatedAt
 
 ### users table
 Fields: id, name, email, password (hashed), role (Administrador/Corresponsal), active, createdAt, updatedAt
@@ -107,3 +108,4 @@ Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, c
 | 2026-02-28 | Full CRUD application for Assistravel case management |
 | 2026-02-28 | Authentication system + user management module |
 | 2026-03-01 | Corresponsales module with CRUD + integration with cases form |
+| 2026-03-01 | Case registration info block (createdBy, updatedBy) |

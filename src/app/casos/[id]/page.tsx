@@ -240,17 +240,61 @@ export default async function CasoDetailPage({ params }: PageProps) {
       </div>
 
       {/* Timestamps */}
-      <div className="text-xs text-gray-400 flex flex-col sm:flex-row gap-2 sm:gap-6 px-1">
-        {caso.createdAt && (
-          <span>
-            Creado: {new Date(caso.createdAt).toLocaleString("es-AR")}
-          </span>
-        )}
-        {caso.updatedAt && (
-          <span>
-            Actualizado: {new Date(caso.updatedAt).toLocaleString("es-AR")}
-          </span>
-        )}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+          <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Información del Registro
+          </h3>
+        </div>
+        <dl className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <dt className="text-xs font-medium text-gray-400 uppercase tracking-wide">Creado por</dt>
+              <dd className="mt-1 text-sm text-gray-900 font-medium">
+                {caso.createdBy || "—"}
+              </dd>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-green-50 rounded-lg">
+              <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <dt className="text-xs font-medium text-gray-400 uppercase tracking-wide">Fecha de Creación</dt>
+              <dd className="mt-1 text-sm text-gray-900">
+                {caso.createdAt ? new Date(caso.createdAt).toLocaleString("es-AR") : "—"}
+              </dd>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-orange-50 rounded-lg">
+              <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </div>
+            <div>
+              <dt className="text-xs font-medium text-gray-400 uppercase tracking-wide">Última Edición</dt>
+              <dd className="mt-1 text-sm text-gray-900">
+                {caso.updatedAt ? new Date(caso.updatedAt).toLocaleString("es-AR") : "—"}
+              </dd>
+              {caso.updatedBy && (
+                <dd className="mt-1 text-xs text-gray-500">
+                  por {caso.updatedBy}
+                </dd>
+              )}
+            </div>
+          </div>
+        </dl>
       </div>
     </div>
   );

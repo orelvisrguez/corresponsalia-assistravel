@@ -47,6 +47,8 @@ export const casos = sqliteTable("casos", {
     enum: ["No Fee", "On Going", "Refacturado", "Para refacturar", "Cobrado"],
   }).default("On Going"),
   observaciones: text("observaciones"),
+  createdBy: text("created_by"),
+  updatedBy: text("updated_by"),
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
     () => new Date()
   ),

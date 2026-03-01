@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { casos } from "@/db/schema";
 import { casoSchema } from "@/lib/validations";
+import { getCurrentUser } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 
 export async function GET(
@@ -37,6 +38,11 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+
     const { id } = await params;
     const casoId = parseInt(id, 10);
 
@@ -49,7 +55,7 @@ export async function PUT(
 
     const [updated] = await db
       .update(casos)
-      .set({ ...validated, updatedAt: new Date() })
+      .set({ ...validated, updatedAt: new Date(), updatedBy: currentUser.name })
       .where(eq(casos.id, casoId))
       .returning();
 

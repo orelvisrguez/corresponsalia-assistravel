@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { casos } from "@/db/schema";
 import { casoSchema } from "@/lib/validations";
+import { getCurrentUser } from "@/lib/auth";
 import { like, or, desc, asc, eq } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
@@ -66,10 +67,18 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+
     const body = await request.json();
     const validated = casoSchema.parse(body);
 
-    const [newCaso] = await db.insert(casos).values(validated).returning();
+    const [newCaso] = await db.insert(casos).values({
+      ...validated,
+      createdBy: currentUser.name,
+    }).returning();
 
     return NextResponse.json({ data: newCaso }, { status: 201 });
   } catch (error) {

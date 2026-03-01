@@ -20,6 +20,8 @@ export const casoSchema = z.object({
   estadoInterno: z.enum(["Abierto", "Cerrado", "Pausado", "Cancelado"]).default("Abierto"),
   estadoCaso: z.enum(["No Fee", "On Going", "Refacturado", "Para refacturar", "Cobrado"]).default("On Going"),
   observaciones: z.string().optional().nullable(),
+  createdBy: z.string().optional().nullable(),
+  updatedBy: z.string().optional().nullable(),
 });
 
 export type CasoFormData = z.infer<typeof casoSchema>;
