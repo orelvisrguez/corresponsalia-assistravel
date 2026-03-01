@@ -67,6 +67,10 @@ The application is a complete CRUD system for managing medical/insurance cases (
   - Added support for custom countries not in predefined list
   - Fixed dropdown closing issue by adding stopPropagation
   - Uses flagcdn.com for flag images instead of emojis
+- [x] **CountrySelect dropdown fix** - Fixed dropdown being hidden:
+  - Increased z-index from 50 to 100
+  - Added explicit top/left/right positioning
+  - Changed shadow from shadow-lg to shadow-xl
 
 ## Current Structure
 
@@ -140,3 +144,4 @@ Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, c
 | 2026-03-01 | Case registration info block (createdBy, updatedBy) |
 | 2026-03-01 | Corresponsales detail page with cases statistics and related cases list |
 | 2026-03-01 | CountrySelect with search and custom country support, fix flag display |
+| 2026-03-01 | CountrySelect dropdown visibility fix - increased z-index and explicit positioning |
