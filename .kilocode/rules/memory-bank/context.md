@@ -2,7 +2,7 @@
 
 ## Current State
 
-**Template Status**: ✅ Full CRUD Application with Authentication - Assistravel Case Management (Modern UI Redesign)
+**Template Status**: ✅ Full CRUD Application with Authentication - Assistravel Case Management (Corresponsales Enhanced)
 
 The application is a complete CRUD system for managing medical/insurance cases (casos) with corresponsales, plus a full authentication and user management system. Built with Next.js 16, TypeScript, Tailwind CSS 4, Drizzle ORM + SQLite, bcryptjs + jose JWT.
 
@@ -51,6 +51,17 @@ The application is a complete CRUD system for managing medical/insurance cases (
   - Stats cards with gradient accent lines
   - Table with modern hover effects
   - User menu with modern dropdown
+- [x] **Corresponsales enhanced** - Detail page now shows:
+  - Total cases, open cases, closed cases, paused cases statistics
+  - Total revenue breakdown (Fee, Costo USD, Monto Agregado)
+  - Estado de Casos breakdown (On Going, Cobrado, Para Refacturar, No Fee)
+  - Contact information section with icons
+  - Full list of related cases with modern table design
+  - Financial totals for each case
+- [x] **Corresponsales CRUD modernized** - List page and form updated:
+  - Modern stats cards at top (Total, Activos, Inactivos)
+  - CorresponsalesTable with modern filter bar and table design
+  - CorresponsalForm with modern inputs and styling
 
 ## Current Structure
 
@@ -92,6 +103,8 @@ The application is a complete CRUD system for managing medical/insurance cases (
 | `src/components/UserMenu.tsx` | User dropdown menu | ✅ Ready |
 | `src/components/UsuariosTable.tsx` | Users table | ✅ Ready |
 | `src/components/UsuarioForm.tsx` | Create/edit user form | ✅ Ready |
+| `src/components/CorresponsalesTable.tsx` | Corresponsales table with filters | ✅ Ready |
+| `src/components/CorresponsalForm.tsx` | Create/edit corresponsal form | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
 ## Database Schema
@@ -119,3 +132,4 @@ Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, c
 | 2026-02-28 | Authentication system + user management module |
 | 2026-03-01 | Corresponsales module with CRUD + integration with cases form |
 | 2026-03-01 | Case registration info block (createdBy, updatedBy) |
+| 2026-03-01 | Corresponsales detail page with cases statistics and related cases list |
