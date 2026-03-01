@@ -66,19 +66,19 @@ export default async function UsuariosPage() {
           },
           {
             label: "Administradores",
-            value: allUsers.filter((u) => u.role === "Administrador").length,
+            value: allUsers.filter((u: typeof allUsers[0]) => u.role === "Administrador").length,
             color: "bg-purple-50 text-purple-600",
             border: "border-purple-100",
           },
           {
             label: "Corresponsales",
-            value: allUsers.filter((u) => u.role === "Corresponsal").length,
+            value: allUsers.filter((u: typeof allUsers[0]) => u.role === "Corresponsal").length,
             color: "bg-indigo-50 text-indigo-600",
             border: "border-indigo-100",
           },
           {
             label: "Activos",
-            value: allUsers.filter((u) => u.active).length,
+            value: allUsers.filter((u: typeof allUsers[0]) => u.active).length,
             color: "bg-green-50 text-green-600",
             border: "border-green-100",
           },

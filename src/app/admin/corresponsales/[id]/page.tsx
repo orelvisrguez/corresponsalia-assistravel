@@ -38,23 +38,23 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
 
   // Calculate statistics
   const totalCasos = casosCorresponsal.length;
-  const casosAbiertos = casosCorresponsal.filter(c => c.estadoInterno === "Abierto").length;
-  const casosCerrados = casosCorresponsal.filter(c => c.estadoInterno === "Cerrado").length;
-  const casosPausados = casosCorresponsal.filter(c => c.estadoInterno === "Pausado").length;
+  const casosAbiertos = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoInterno === "Abierto").length;
+  const casosCerrados = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoInterno === "Cerrado").length;
+  const casosPausados = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoInterno === "Pausado").length;
   
   // Calculate totals
-  const totalFee = casosCorresponsal.reduce((acc, c) => acc + (Number(c.fee) || 0), 0);
-  const totalCostoUsd = casosCorresponsal.reduce((acc, c) => acc + (Number(c.costoUsd) || 0), 0);
-  const totalMontoAgregado = casosCorresponsal.reduce((acc, c) => acc + (Number(c.montoAgregado) || 0), 0);
+  const totalFee = casosCorresponsal.reduce((acc: number, c: typeof casosCorresponsal[0]) => acc + (Number(c.fee) || 0), 0);
+  const totalCostoUsd = casosCorresponsal.reduce((acc: number, c: typeof casosCorresponsal[0]) => acc + (Number(c.costoUsd) || 0), 0);
+  const totalMontoAgregado = casosCorresponsal.reduce((acc: number, c: typeof casosCorresponsal[0]) => acc + (Number(c.montoAgregado) || 0), 0);
   const totalGeneral = totalFee + totalCostoUsd + totalMontoAgregado;
   
-  const casosConFactura = casosCorresponsal.filter(c => c.tieneFactura).length;
+  const casosConFactura = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.tieneFactura).length;
 
   // Calculate totals by status
-  const casosOnGoing = casosCorresponsal.filter(c => c.estadoCaso === "On Going").length;
-  const casosCobrado = casosCorresponsal.filter(c => c.estadoCaso === "Cobrado").length;
-  const casosParaRefacturar = casosCorresponsal.filter(c => c.estadoCaso === "Para refacturar").length;
-  const casosNoFee = casosCorresponsal.filter(c => c.estadoCaso === "No Fee").length;
+  const casosOnGoing = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoCaso === "On Going").length;
+  const casosCobrado = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoCaso === "Cobrado").length;
+  const casosParaRefacturar = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoCaso === "Para refacturar").length;
+  const casosNoFee = casosCorresponsal.filter((c: typeof casosCorresponsal[0]) => c.estadoCaso === "No Fee").length;
 
   const calculateTotal = (caso: typeof casosCorresponsal[0]) => {
     return (Number(caso.fee) || 0) + (Number(caso.costoUsd) || 0) + (Number(caso.montoAgregado) || 0);
@@ -359,7 +359,7 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {casosCorresponsal.map((caso) => (
+                {casosCorresponsal.map((caso: typeof casosCorresponsal[0]) => (
                   <tr key={caso.id} className="hover:bg-slate-50/50 transition-colors">
                     <td className="px-5 py-4">
                       <span className="font-mono text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-md">

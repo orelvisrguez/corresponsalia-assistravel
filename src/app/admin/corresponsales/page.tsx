@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { db } from "@/db";
 import { corresponsales } from "@/db/schema";
+import type { Corresponsal } from "@/db/schema";
 import CorresponsalesTable from "@/components/CorresponsalesTable";
 
 export default async function CorresponsalesPage() {
   const corresponsalesList = await db.select().from(corresponsales).orderBy(corresponsales.nombre);
 
-  const activos = corresponsalesList.filter(c => c.activo).length;
-  const inactivos = corresponsalesList.filter(c => !c.activo).length;
+  const activos = corresponsalesList.filter((c: Corresponsal) => c.activo).length;
+  const inactivos = corresponsalesList.filter((c: Corresponsal) => !c.activo).length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">

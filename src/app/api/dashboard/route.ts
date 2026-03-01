@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { casos, corresponsales } from "@/db/schema";
+import type { Caso, Corresponsal } from "@/db/schema";
 import { eq, and, gte, lte, sql, desc } from "drizzle-orm";
 
 export type DashboardFilter = "semanal" | "quincenal" | "mensual" | "trimestral" | "semestral" | "anual";
@@ -103,7 +104,7 @@ export async function GET(request: Request) {
     }).from(casos);
     
     const financialInRange = casesInRange.reduce(
-      (acc, c) => ({
+      (acc: { fee: number; costoUsd: number; montoAgregado: number }, c: Caso) => ({
         fee: acc.fee + (c.fee || 0),
         costoUsd: acc.costoUsd + (c.costoUsd || 0),
         montoAgregado: acc.montoAgregado + (c.montoAgregado || 0),
@@ -122,7 +123,7 @@ export async function GET(request: Request) {
       const monthStart = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
       const monthEnd = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0);
       
-      const monthCases = casesInRange.filter(c => {
+      const monthCases = casesInRange.filter((c: Caso) => {
         if (!c.createdAt) return false;
         const created = new Date(c.createdAt);
         return created >= monthStart && created <= monthEnd;
@@ -132,25 +133,25 @@ export async function GET(request: Request) {
       casesByMonth.push({
         month: monthName,
         count: monthCases.length,
-        fee: monthCases.reduce((sum, c) => sum + (c.fee || 0), 0),
+        fee: monthCases.reduce((sum: number, c: Caso) => sum + (c.fee || 0), 0),
       });
     }
 
     // Cases by status in range
     const statusInRange = {
-      Abierto: casesInRange.filter(c => c.estadoInterno === "Abierto").length,
-      Cerrado: casesInRange.filter(c => c.estadoInterno === "Cerrado").length,
-      Pausado: casesInRange.filter(c => c.estadoInterno === "Pausado").length,
-      Cancelado: casesInRange.filter(c => c.estadoInterno === "Cancelado").length,
+      Abierto: casesInRange.filter((c: Caso) => c.estadoInterno === "Abierto").length,
+      Cerrado: casesInRange.filter((c: Caso) => c.estadoInterno === "Cerrado").length,
+      Pausado: casesInRange.filter((c: Caso) => c.estadoInterno === "Pausado").length,
+      Cancelado: casesInRange.filter((c: Caso) => c.estadoInterno === "Cancelado").length,
     };
 
     // Cases by estadoCaso in range
     const estadoCasoInRange = {
-      "No Fee": casesInRange.filter(c => c.estadoCaso === "No Fee").length,
-      "On Going": casesInRange.filter(c => c.estadoCaso === "On Going").length,
-      "Refacturado": casesInRange.filter(c => c.estadoCaso === "Refacturado").length,
-      "Para refacturar": casesInRange.filter(c => c.estadoCaso === "Para refacturar").length,
-      "Cobrado": casesInRange.filter(c => c.estadoCaso === "Cobrado").length,
+      "No Fee": casesInRange.filter((c: Caso) => c.estadoCaso === "No Fee").length,
+      "On Going": casesInRange.filter((c: Caso) => c.estadoCaso === "On Going").length,
+      "Refacturado": casesInRange.filter((c: Caso) => c.estadoCaso === "Refacturado").length,
+      "Para refacturar": casesInRange.filter((c: Caso) => c.estadoCaso === "Para refacturar").length,
+      "Cobrado": casesInRange.filter((c: Caso) => c.estadoCaso === "Cobrado").length,
     };
 
     // Top correspondales by cases
@@ -164,11 +165,11 @@ export async function GET(request: Request) {
       .limit(5);
 
     const topCorresponsalesWithCounts = await Promise.all(
-      topCorresponsales.map(async (c) => {
-        const casesCount = casesInRange.filter(caso => caso.corresponsalId === c.id).length;
+      topCorresponsales.map(async (c: Corresponsal) => {
+        const casesCount = casesInRange.filter((caso: Caso) => caso.corresponsalId === c.id).length;
         const totalFee = casesInRange
-          .filter(caso => caso.corresponsalId === c.id)
-          .reduce((sum, caso) => sum + (caso.fee || 0), 0);
+          .filter((caso: Caso) => caso.corresponsalId === c.id)
+          .reduce((sum: number, caso: Caso) => sum + (caso.fee || 0), 0);
         return {
           id: c.id,
           nombre: c.nombre,
@@ -180,7 +181,7 @@ export async function GET(request: Request) {
     );
 
     // Recent cases
-    const recentCases = casesInRange.slice(0, 10).map(c => ({
+    const recentCases = casesInRange.slice(0, 10).map((c: Caso) => ({
       id: c.id,
       nroCasoAssistravel: c.nroCasoAssistravel,
       corresponsal: c.corresponsal,
