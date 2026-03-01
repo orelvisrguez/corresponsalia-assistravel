@@ -33,6 +33,11 @@ The application is a complete CRUD system for managing medical/insurance cases (
 - [x] UserMenu component with logout and role display
 - [x] Seed script for default admin user
 - [x] Role-based access control
+- [x] Corresponsales module with CRUD operations
+- [x] Corresponsales table in database (nombre, email, telefono, pais, direccion, contacto, notas, activo)
+- [x] Corresponsales API routes at /api/corresponsales
+- [x] Admin pages for managing corresponsales at /admin/corresponsales
+- [x] CasoForm now uses dropdown with active corresponsales
 
 ## Current Structure
 
@@ -48,6 +53,10 @@ The application is a complete CRUD system for managing medical/insurance cases (
 | `src/app/admin/usuarios/page.tsx` | Users list (admin only) | ✅ Ready |
 | `src/app/admin/usuarios/nuevo/page.tsx` | Create user (admin only) | ✅ Ready |
 | `src/app/admin/usuarios/[id]/editar/page.tsx` | Edit user (admin only) | ✅ Ready |
+| `src/app/admin/corresponsales/page.tsx` | Corresponsales list | ✅ Ready |
+| `src/app/admin/corresponsales/nuevo/page.tsx` | Create corresponsal | ✅ Ready |
+| `src/app/admin/corresponsales/[id]/page.tsx` | Corresponsal detail | ✅ Ready |
+| `src/app/admin/corresponsales/[id]/editar/page.tsx` | Edit corresponsal | ✅ Ready |
 | `src/app/api/casos/route.ts` | GET all, POST | ✅ Ready |
 | `src/app/api/casos/[id]/route.ts` | GET one, PUT, DELETE | ✅ Ready |
 | `src/app/api/auth/login/route.ts` | POST login | ✅ Ready |
@@ -80,6 +89,9 @@ Fields: id, corresponsal, nroCasoAssistravel, nroCasoCorresponsal, fechaInicio, 
 ### users table
 Fields: id, name, email, password (hashed), role (Administrador/Corresponsal), active, createdAt, updatedAt
 
+### corresponsales table
+Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, createdAt, updatedAt
+
 ## Default Admin User
 - Email: admin@assistravel.com
 - Password: Admin123!
@@ -92,3 +104,4 @@ Fields: id, name, email, password (hashed), role (Administrador/Corresponsal), a
 | Initial | Template created with base setup |
 | 2026-02-28 | Full CRUD application for Assistravel case management |
 | 2026-02-28 | Authentication system + user management module |
+| 2026-03-01 | Corresponsales module with CRUD + integration with cases form |
