@@ -3,9 +3,9 @@
 import { useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { casoSchema, type CasoFormData, ESTADOS_INTERNOS, ESTADOS_CASO } from "@/lib/validations";
-import type { Caso } from "@/db/schema";
+import type { Caso, Corresponsal } from "@/db/schema";
 
 interface CasoFormProps {
   caso?: Caso;
@@ -16,6 +16,25 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [corresponsales, setCorresponsales] = useState<Corresponsal[]>([]);
+  const [loadingCorresponsales, setLoadingCorresponsales] = useState(true);
+
+  useEffect(() => {
+    async function fetchCorresponsales() {
+      try {
+        const res = await fetch("/api/corresponsales?activo=true");
+        if (res.ok) {
+          const data = await res.json();
+          setCorresponsales(data);
+        }
+      } catch (err) {
+        console.error("Error fetching corresponsales:", err);
+      } finally {
+        setLoadingCorresponsales(false);
+      }
+    }
+    fetchCorresponsales();
+  }, []);
 
   const {
     register,
@@ -133,11 +152,25 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
             <label className={labelClass}>
               Corresponsal <span className="text-red-500">*</span>
             </label>
-            <input
-              {...register("corresponsal")}
-              className={inputClass(!!errors.corresponsal)}
-              placeholder="Nombre del corresponsal"
-            />
+            {loadingCorresponsales ? (
+              <input
+                disabled
+                className={`${inputClass()} bg-gray-50`}
+                placeholder="Cargando..."
+              />
+            ) : (
+              <select
+                {...register("corresponsal")}
+                className={inputClass(!!errors.corresponsal)}
+              >
+                <option value="">Seleccionar corresponsal...</option>
+                {corresponsales.map((c) => (
+                  <option key={c.id} value={c.nombre}>
+                    {c.nombre}
+                  </option>
+                ))}
+              </select>
+            )}
             {errors.corresponsal && (
               <p className={errorClass}>
                 <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">

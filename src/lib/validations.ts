@@ -49,3 +49,16 @@ export const ESTADO_CASO_ROW_COLORS: Record<string, string> = {
   "Para refacturar": "bg-orange-50/70",
   Cobrado: "bg-emerald-50/70",
 };
+
+export const corresponsalSchema = z.object({
+  nombre: z.string().min(1, "El nombre es requerido"),
+  email: z.string().email("Email inválido").optional().nullable(),
+  telefono: z.string().optional().nullable(),
+  pais: z.string().optional().nullable(),
+  direccion: z.string().optional().nullable(),
+  contacto: z.string().optional().nullable(),
+  notas: z.string().optional().nullable(),
+  activo: z.boolean(),
+});
+
+export type CorresponsalFormData = z.infer<typeof corresponsalSchema>;

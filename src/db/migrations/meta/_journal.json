@@ -15,6 +15,13 @@
       "when": 1772320887113,
       "tag": "0001_fixed_omega_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1772323452581,
+      "tag": "0002_opposite_devos",
+      "breakpoints": true
     }
   ]
 }

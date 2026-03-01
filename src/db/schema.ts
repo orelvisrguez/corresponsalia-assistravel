@@ -1,8 +1,30 @@
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, foreignKey } from "drizzle-orm/sqlite-core";
+
+export const corresponsales = sqliteTable("corresponsales", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  nombre: text("nombre").notNull(),
+  email: text("email"),
+  telefono: text("telefono"),
+  pais: text("pais"),
+  direccion: text("direccion"),
+  contacto: text("contacto"),
+  notas: text("notas"),
+  activo: integer("activo", { mode: "boolean" }).notNull().default(true),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
+    () => new Date()
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
+    () => new Date()
+  ),
+});
+
+export type Corresponsal = typeof corresponsales.$inferSelect;
+export type NewCorresponsal = typeof corresponsales.$inferInsert;
 
 export const casos = sqliteTable("casos", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   corresponsal: text("corresponsal").notNull(),
+  corresponsalId: integer("corresponsal_id").references(() => corresponsales.id),
   nroCasoAssistravel: text("nro_caso_assistravel").notNull(),
   nroCasoCorresponsal: text("nro_caso_corresponsal"),
   fechaInicio: text("fecha_inicio"),
