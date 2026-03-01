@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifySession } from "@/lib/auth";
 
+export const runtime = "edge";
+
 const PUBLIC_PATHS = ["/login", "/api/auth/login"];
 
-export default async function proxy(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow public paths
