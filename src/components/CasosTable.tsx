@@ -177,10 +177,10 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
   return (
     <>
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1 relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -188,13 +188,13 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
               placeholder="Buscar por corresponsal, caso, país, factura..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-slate-50/50 transition-all"
             />
           </div>
           <select
             value={filterEstadoInterno}
             onChange={(e) => setFilterEstadoInterno(e.target.value)}
-            className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="px-4 py-2.5 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-slate-50/50 transition-all"
           >
             <option value="">Estado Interno</option>
             {ESTADOS_INTERNOS.map((e) => (
@@ -204,7 +204,7 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
           <select
             value={filterEstadoCaso}
             onChange={(e) => setFilterEstadoCaso(e.target.value)}
-            className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="px-4 py-2.5 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-slate-50/50 transition-all"
           >
             <option value="">Estado Caso</option>
             {ESTADOS_CASO.map((e) => (
@@ -218,199 +218,203 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
                 setFilterEstadoInterno("");
                 setFilterEstadoCaso("");
               }}
-              className="px-3 py-2.5 text-sm text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-700 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
             >
               Limpiar
             </button>
           )}
         </div>
-        <div className="mt-2 text-xs text-gray-400">
+        <div className="mt-3 text-sm text-slate-400 font-medium">
           {filtered.length} de {casos.length} casos
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("id")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                  >
-                    ID <SortIcon field="id" />
-                  </button>
-                </th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("corresponsal")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                  >
-                    Corresponsal <SortIcon field="corresponsal" />
-                  </button>
-                </th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  Nro Caso Assistravel
-                </th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("fechaInicio")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                  >
-                    Fecha Inicio <SortIcon field="fechaInicio" />
-                  </button>
-                </th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("pais")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                  >
-                    País <SortIcon field="pais" />
-                  </button>
-                </th>
-                <th className="text-right px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("costoUsd")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors ml-auto"
-                  >
-                    Total USD <SortIcon field="costoUsd" />
-                  </button>
-                </th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("estadoInterno")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                  >
-                    Estado Interno <SortIcon field="estadoInterno" />
-                  </button>
-                </th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  <button
-                    onClick={() => handleSort("estadoCaso")}
-                    className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                  >
-                    Estado Caso <SortIcon field="estadoCaso" />
-                  </button>
-                </th>
-                <th className="text-center px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  Factura
-                </th>
-                <th className="text-right px-4 py-3 font-semibold text-gray-600 whitespace-nowrap">
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {filtered.length === 0 ? (
-                <tr>
-                  <td colSpan={10} className="px-4 py-12 text-center text-gray-400">
-                    <div className="flex flex-col items-center gap-2">
-                      <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-slate-50/80 border-b border-slate-200">
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("id")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                >
+                  ID <SortIcon field="id" />
+                </button>
+              </th>
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("corresponsal")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                >
+                  Corresponsal <SortIcon field="corresponsal" />
+                </button>
+              </th>
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                Nro Caso Assistravel
+              </th>
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("fechaInicio")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                >
+                  Fecha Inicio <SortIcon field="fechaInicio" />
+                </button>
+              </th>
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("pais")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                >
+                  País <SortIcon field="pais" />
+                </button>
+              </th>
+              <th className="text-right px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("costoUsd")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors ml-auto"
+                >
+                  Total USD <SortIcon field="costoUsd" />
+                </button>
+              </th>
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("estadoInterno")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                >
+                  Estado Interno <SortIcon field="estadoInterno" />
+                </button>
+              </th>
+              <th className="text-left px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                <button
+                  onClick={() => handleSort("estadoCaso")}
+                  className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                >
+                  Estado Caso <SortIcon field="estadoCaso" />
+                </button>
+              </th>
+              <th className="text-center px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                Factura
+              </th>
+              <th className="text-right px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100">
+            {filtered.length === 0 ? (
+              <tr>
+                <td colSpan={10} className="px-5 py-16 text-center text-slate-400">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center">
+                      <svg className="w-7 h-7 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
-                      <p className="font-medium">No se encontraron casos</p>
-                      <p className="text-sm">Intenta ajustar los filtros o crea un nuevo caso</p>
+                    </div>
+                    <p className="font-semibold text-slate-600">No se encontraron casos</p>
+                    <p className="text-sm">Intenta ajustar los filtros o crea un nuevo caso</p>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              filtered.map((caso) => (
+                <tr
+                  key={caso.id}
+                  className={`transition-all duration-200 hover:bg-slate-50/80 ${ESTADO_CASO_ROW_COLORS[caso.estadoCaso || ""] || ""} ${!caso.estadoCaso ? "" : ""}`}
+                >
+                  <td className="px-5 py-4">
+                    <span className="font-mono text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
+                      #{caso.id}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4">
+                    <div className="font-semibold text-slate-900 max-w-[160px] truncate" title={caso.corresponsal}>
+                      {caso.corresponsal}
+                    </div>
+                    {caso.nroCasoCorresponsal && (
+                      <div className="text-xs text-slate-400 mt-0.5">{caso.nroCasoCorresponsal}</div>
+                    )}
+                  </td>
+                  <td className="px-5 py-4">
+                    <span className="font-mono text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded-md">
+                      {caso.nroCasoAssistravel}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4 text-slate-600 whitespace-nowrap">
+                    {formatDate(caso.fechaInicio)}
+                  </td>
+                  <td className="px-5 py-4 text-slate-600">
+                    {caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : "—"}
+                  </td>
+                  <td className="px-5 py-4 text-right font-semibold text-slate-900 whitespace-nowrap">
+                    {formatUsd(calculateTotalUsd(caso))}
+                  </td>
+                  <td className="px-5 py-4">
+                    {caso.estadoInterno ? (
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border ${ESTADO_INTERNO_COLORS[caso.estadoInterno] || "bg-slate-100 text-slate-700 border-slate-200"}`}>
+                        {caso.estadoInterno}
+                      </span>
+                    ) : "—"}
+                  </td>
+                  <td className="px-5 py-4">
+                    {caso.estadoCaso ? (
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border ${ESTADO_CASO_COLORS[caso.estadoCaso] || "bg-slate-100 text-slate-700 border-slate-200"}`}>
+                        {caso.estadoCaso}
+                      </span>
+                    ) : "—"}
+                  </td>
+                  <td className="px-5 py-4 text-center">
+                    {caso.tieneFactura ? (
+                      <span className="inline-flex items-center justify-center w-7 h-7 bg-emerald-100 rounded-xl">
+                        <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center justify-center w-7 h-7 bg-slate-100 rounded-xl">
+                        <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-5 py-4">
+                    <div className="flex items-center justify-end gap-1">
+                      <a
+                        href={`/casos/${caso.id}`}
+                        className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
+                        title="Ver detalle"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </a>
+                      <a
+                        href={`/casos/${caso.id}/editar`}
+                        className="p-2 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200"
+                        title="Editar"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </a>
+                      <button
+                        onClick={() => setDeleteModal({ open: true, caso })}
+                        className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200"
+                        title="Eliminar"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
                     </div>
                   </td>
                 </tr>
-              ) : (
-                filtered.map((caso) => (
-                  <tr
-                    key={caso.id}
-                    className={`transition-colors group ${ESTADO_CASO_ROW_COLORS[caso.estadoCaso || ""] || ""} ${!caso.estadoCaso ? "hover:bg-gray-50" : ""}`}
-                  >
-                    <td className="px-4 py-3 font-mono text-xs text-gray-500 font-medium">
-                      #{caso.id}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="font-medium text-gray-900 max-w-[160px] truncate" title={caso.corresponsal}>
-                        {caso.corresponsal}
-                      </div>
-                      {caso.nroCasoCorresponsal && (
-                        <div className="text-xs text-gray-400 mt-0.5">{caso.nroCasoCorresponsal}</div>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs text-gray-700">
-                      {caso.nroCasoAssistravel}
-                    </td>
-                    <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
-                      {formatDate(caso.fechaInicio)}
-                    </td>
-                    <td className="px-4 py-3 text-gray-600">
-                      {caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : "—"}
-                    </td>
-                    <td className="px-4 py-3 text-right font-medium text-gray-900 whitespace-nowrap">
-                      {formatUsd(calculateTotalUsd(caso))}
-                    </td>
-                    <td className="px-4 py-3">
-                      {caso.estadoInterno ? (
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${ESTADO_INTERNO_COLORS[caso.estadoInterno] || "bg-gray-100 text-gray-800"}`}>
-                          {caso.estadoInterno}
-                        </span>
-                      ) : "—"}
-                    </td>
-                    <td className="px-4 py-3">
-                      {caso.estadoCaso ? (
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${ESTADO_CASO_COLORS[caso.estadoCaso] || "bg-gray-100 text-gray-800"}`}>
-                          {caso.estadoCaso}
-                        </span>
-                      ) : "—"}
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      {caso.tieneFactura ? (
-                        <span className="inline-flex items-center justify-center w-6 h-6 bg-green-100 rounded-full">
-                          <svg className="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full">
-                          <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-end gap-1">
-                        <a
-                          href={`/casos/${caso.id}`}
-                          className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          title="Ver detalle"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                          </svg>
-                        </a>
-                        <a
-                          href={`/casos/${caso.id}/editar`}
-                          className="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                          title="Editar"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                          </svg>
-                        </a>
-                        <button
-                          onClick={() => setDeleteModal({ open: true, caso })}
-                          className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Eliminar"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
       <DeleteModal

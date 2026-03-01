@@ -44,16 +44,16 @@ export default function UserMenu({ user }: UserMenuProps) {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+        className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-slate-100 transition-all duration-200"
       >
-        <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white text-xs font-bold shadow-md">
           {initials}
         </div>
         <div className="hidden sm:block text-left">
-          <p className="text-sm font-medium text-gray-700 leading-tight">{user.name}</p>
-          <p className="text-xs text-gray-400 leading-tight">{user.role}</p>
+          <p className="text-sm font-semibold text-slate-700 leading-tight">{user.name}</p>
+          <p className="text-xs text-slate-400 leading-tight">{user.role}</p>
         </div>
-        <svg className="w-4 h-4 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 text-slate-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
@@ -64,17 +64,17 @@ export default function UserMenu({ user }: UserMenuProps) {
             className="fixed inset-0 z-30"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 z-40 overflow-hidden">
+          <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 z-40 overflow-hidden">
             {/* User info */}
-            <div className="px-4 py-3 border-b border-gray-100">
+            <div className="px-4 py-4 border-b border-slate-100">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-lg shadow-blue-600/20">
                   {initials}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-gray-900 truncate">{user.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium mt-1 ${roleColor}`}>
+                  <p className="text-sm font-bold text-slate-900 truncate">{user.name}</p>
+                  <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold mt-1.5 ${roleColor}`}>
                     {user.role}
                   </span>
                 </div>
@@ -82,14 +82,14 @@ export default function UserMenu({ user }: UserMenuProps) {
             </div>
 
             {/* Menu items */}
-            <div className="py-1">
+            <div className="py-2">
               {user.role === "Administrador" && (
                 <Link
                   href="/admin/usuarios"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-all duration-200 mx-1 rounded-xl"
                 >
-                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                   Gestión de Usuarios
@@ -97,11 +97,11 @@ export default function UserMenu({ user }: UserMenuProps) {
               )}
             </div>
 
-            <div className="border-t border-gray-100 py-1">
+            <div className="border-t border-slate-100 py-2">
               <button
                 onClick={handleLogout}
                 disabled={loggingOut}
-                className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
+                className="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-all duration-200 disabled:opacity-50 mx-1 rounded-xl"
               >
                 {loggingOut ? (
                   <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
