@@ -100,6 +100,11 @@ The application is a complete CRUD system for managing medical/insurance cases (
   - Top Corresponsales table with cases and fee
   - Recent cases table with quick links
   - Auto-refresh every 60 seconds
+- [x] **TypeScript fixes** - Fixed implicit any errors in:
+  - src/app/admin/corresponsales/[id]/page.tsx - Added types to filter and reduce callbacks
+  - src/app/admin/corresponsales/page.tsx - Added Corresponsal type to filters
+  - src/app/admin/usuarios/page.tsx - Added types to user filters
+  - src/app/api/dashboard/route.ts - Added Caso and Corresponsal types to all callbacks
 
 ## Current Structure
 
@@ -176,3 +181,4 @@ Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, c
 | 2026-03-01 | CountrySelect with search and custom country support, fix flag display |
 | 2026-03-01 | CountrySelect dropdown visibility fix - increased z-index and explicit positioning |
 | 2026-03-01 | Professional Dashboard with charts and real-time data - filter system, stats cards, line/pie/bar charts, auto-refresh |
+| 2026-03-01 | TypeScript fixes - Fixed implicit any errors in dashboard and admin pages |
