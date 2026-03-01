@@ -44,15 +44,6 @@ export default async function RootLayout({
                     </svg>
                     <span className="hidden sm:inline">Casos</span>
                   </Link>
-                  <Link
-                    href="/casos/nuevo"
-                    className="flex items-center gap-2 px-3.5 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all duration-200 shadow-md shadow-blue-600/20 hover:shadow-lg"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span className="hidden sm:inline">Nuevo Caso</span>
-                  </Link>
                   {user.role === "Administrador" && (
                     <Link
                       href="/admin/corresponsales"
