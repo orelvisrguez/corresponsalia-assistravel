@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { corresponsales, casos } from "@/db/schema";
 import { eq, desc, or } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import { getCountryFlag } from "@/lib/validations";
+import { getCountryCode, isCustomCountry } from "@/lib/validations";
 import { formatDateArgentina, formatUsdArgentina } from "@/lib/dates";
 
 interface PageProps {
@@ -78,8 +78,19 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
             </span>
           </div>
           {corresponsal.pais && (
-            <p className="text-slate-500 mt-1">
-              {getCountryFlag(corresponsal.pais)} {corresponsal.pais}
+            <p className="text-slate-500 mt-1 flex items-center gap-2">
+              {isCustomCountry(corresponsal.pais) ? (
+                <span className="w-5 h-4 flex items-center justify-center bg-slate-200 rounded text-xs font-medium">
+                  ?
+                </span>
+              ) : (
+                <img
+                  src={`https://flagcdn.com/w20/${getCountryCode(corresponsal.pais)}.png`}
+                  alt={corresponsal.pais}
+                  className="w-5 h-4 rounded object-cover"
+                />
+              )}
+              <span>{corresponsal.pais}</span>
             </p>
           )}
         </div>
@@ -367,7 +378,22 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
                       {caso.fechaInicio ? formatDateArgentina(caso.fechaInicio) : "—"}
                     </td>
                     <td className="px-5 py-4 text-slate-600">
-                      {caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : "—"}
+                      {caso.pais ? (
+                        <span className="flex items-center gap-2">
+                          {isCustomCountry(caso.pais) ? (
+                            <span className="w-5 h-4 flex items-center justify-center bg-slate-200 rounded text-xs font-medium">
+                              ?
+                            </span>
+                          ) : (
+                            <img
+                              src={`https://flagcdn.com/w20/${getCountryCode(caso.pais)}.png`}
+                              alt={caso.pais}
+                              className="w-5 h-4 rounded object-cover"
+                            />
+                          )}
+                          <span>{caso.pais}</span>
+                        </span>
+                      ) : "—"}
                     </td>
                     <td className="px-5 py-4 text-right font-semibold text-slate-900 whitespace-nowrap">
                       {formatUsdArgentina(calculateTotal(caso))}

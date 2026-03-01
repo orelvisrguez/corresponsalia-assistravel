@@ -105,11 +105,28 @@ export const COUNTRIES = [
 
 export type Country = typeof COUNTRIES[number];
 
-// Get country flag emoji by country name or code
+// Get country code for flagcdn (lowercase)
+export function getCountryCode(countryNameOrCode: string): string {
+  if (!countryNameOrCode) return "";
+  const country = COUNTRIES.find(
+    (c) => c.name === countryNameOrCode || c.code === countryNameOrCode
+  );
+  return country?.code?.toLowerCase() || "";
+}
+
+// Get country flag emoji (for backwards compatibility)
 export function getCountryFlag(countryNameOrCode: string): string {
   if (!countryNameOrCode) return "";
   const country = COUNTRIES.find(
     (c) => c.name === countryNameOrCode || c.code === countryNameOrCode
   );
   return country?.flag || "";
+}
+
+// Check if value is a custom country (not in predefined list)
+export function isCustomCountry(countryNameOrCode: string): boolean {
+  if (!countryNameOrCode) return false;
+  return !COUNTRIES.some(
+    (c) => c.name === countryNameOrCode || c.code === countryNameOrCode
+  );
 }

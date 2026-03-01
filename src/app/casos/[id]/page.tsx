@@ -3,7 +3,7 @@ import { casos } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ESTADO_INTERNO_COLORS, ESTADO_CASO_COLORS, getCountryFlag } from "@/lib/validations";
+import { ESTADO_INTERNO_COLORS, ESTADO_CASO_COLORS, getCountryCode, isCustomCountry } from "@/lib/validations";
 import { formatDateArgentina, formatDateTimeArgentina, formatCurrencyArgentina, formatUsdArgentina } from "@/lib/dates";
 import CasoDetailActions from "@/components/CasoDetailActions";
 
@@ -134,7 +134,27 @@ export default async function CasoDetailPage({ params }: PageProps) {
           <Field label="Nro Caso Assistravel" value={caso.nroCasoAssistravel} mono />
           <Field label="Nro Caso Corresponsal" value={caso.nroCasoCorresponsal} mono />
           <Field label="Fecha Inicio" value={formatDate(caso.fechaInicio)} />
-          <Field label="País" value={caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : ""} />
+          <Field 
+                label="País" 
+                value={
+                  caso.pais ? (
+                    <span className="flex items-center gap-2">
+                      {isCustomCountry(caso.pais) ? (
+                        <span className="w-5 h-4 flex items-center justify-center bg-slate-200 rounded text-xs font-medium">
+                          ?
+                        </span>
+                      ) : (
+                        <img
+                          src={`https://flagcdn.com/w20/${getCountryCode(caso.pais)}.png`}
+                          alt={caso.pais}
+                          className="w-5 h-4 rounded object-cover"
+                        />
+                      )}
+                      <span>{caso.pais}</span>
+                    </span>
+                  ) : ""
+                } 
+              />
         </dl>
       </div>
 

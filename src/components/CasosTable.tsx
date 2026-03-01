@@ -9,7 +9,8 @@ import {
   ESTADO_CASO_ROW_COLORS,
   ESTADOS_INTERNOS,
   ESTADOS_CASO,
-  getCountryFlag,
+  getCountryCode,
+  isCustomCountry,
 } from "@/lib/validations";
 import { formatDateArgentina, formatCurrencyArgentina, formatUsdArgentina } from "@/lib/dates";
 import DeleteModal from "./DeleteModal";
@@ -344,7 +345,24 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
                     {formatDate(caso.fechaInicio)}
                   </td>
                   <td className="px-5 py-4 text-slate-600">
-                    {caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : "—"}
+                    {caso.pais ? (
+                          <span className="flex items-center gap-2">
+                            {isCustomCountry(caso.pais) ? (
+                              <span className="w-5 h-4 flex items-center justify-center bg-slate-200 rounded text-xs font-medium">
+                                ?
+                              </span>
+                            ) : (
+                              <img
+                                src={`https://flagcdn.com/w20/${getCountryCode(caso.pais)}.png`}
+                                alt={caso.pais}
+                                className="w-5 h-4 rounded object-cover"
+                              />
+                            )}
+                            <span>{caso.pais}</span>
+                          </span>
+                        ) : (
+                          "—"
+                        )}
                   </td>
                   <td className="px-5 py-4 text-right font-semibold text-slate-900 whitespace-nowrap">
                     {formatUsd(calculateTotalUsd(caso))}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Corresponsal } from "@/db/schema";
-import { getCountryFlag } from "@/lib/validations";
+import { getCountryCode, isCustomCountry } from "@/lib/validations";
 
 interface CorresponsalesTableProps {
   corresponsales: Corresponsal[];
@@ -162,8 +162,19 @@ export default function CorresponsalesTable({ corresponsales: initialCorresponsa
                     </td>
                     <td className="px-5 py-4 text-slate-600">
                       {corresponsal.pais ? (
-                        <span className="flex items-center gap-1.5">
-                          {getCountryFlag(corresponsal.pais)} {corresponsal.pais}
+                        <span className="flex items-center gap-2">
+                          {isCustomCountry(corresponsal.pais) ? (
+                            <span className="w-5 h-4 flex items-center justify-center bg-slate-200 rounded text-xs font-medium">
+                              ?
+                            </span>
+                          ) : (
+                            <img
+                              src={`https://flagcdn.com/w20/${getCountryCode(corresponsal.pais)}.png`}
+                              alt={corresponsal.pais}
+                              className="w-5 h-4 rounded object-cover"
+                            />
+                          )}
+                          <span>{corresponsal.pais}</span>
                         </span>
                       ) : (
                         <span className="text-slate-300">—</span>
