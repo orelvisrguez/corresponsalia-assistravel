@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { db } from "@/db";
 import { corresponsales, casos } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, or } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { getCountryFlag } from "@/lib/validations";
 import { formatDateArgentina, formatUsdArgentina } from "@/lib/dates";
@@ -26,11 +26,14 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
 
   const corresponsal = result[0];
 
-  // Get all cases for this correspondent
+  // Get all cases for this correspondent (by ID or by name as fallback)
   const casosCorresponsal = await db
     .select()
     .from(casos)
-    .where(eq(casos.corresponsalId, numericId))
+    .where(or(
+      eq(casos.corresponsalId, numericId),
+      eq(casos.corresponsal, corresponsal.nombre)
+    ))
     .orderBy(desc(casos.id));
 
   // Calculate statistics

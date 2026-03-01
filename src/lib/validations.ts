@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const casoSchema = z.object({
   corresponsal: z.string().min(1, "El corresponsal es requerido"),
+  corresponsalId: z.number().optional().nullable(),
   nroCasoAssistravel: z.string().min(1, "El número de caso Assistravel es requerido"),
   nroCasoCorresponsal: z.string().optional().nullable(),
   fechaInicio: z.string().optional().nullable(),

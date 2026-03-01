@@ -49,6 +49,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
     defaultValues: caso
       ? {
           corresponsal: caso.corresponsal,
+          corresponsalId: caso.corresponsalId ?? undefined,
           nroCasoAssistravel: caso.nroCasoAssistravel,
           nroCasoCorresponsal: caso.nroCasoCorresponsal ?? "",
           fechaInicio: caso.fechaInicio ?? "",
@@ -81,6 +82,16 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
           observaciones: "",
         },
   });
+
+  // Set corresponsalId when loading in edit mode
+  useEffect(() => {
+    if (caso && corresponsales.length > 0) {
+      const matchingCorresponsal = corresponsales.find(c => c.nombre === caso.corresponsal);
+      if (matchingCorresponsal) {
+        setValue("corresponsalId", matchingCorresponsal.id);
+      }
+    }
+  }, [caso, corresponsales, setValue]);
 
   const tieneFactura = watch("tieneFactura");
 
@@ -165,6 +176,11 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
               <select
                 {...register("corresponsal")}
                 className={inputClass(!!errors.corresponsal)}
+                onChange={(e) => {
+                  const selectedCorresponsal = corresponsales.find(c => c.nombre === e.target.value);
+                  setValue("corresponsal", e.target.value);
+                  setValue("corresponsalId", selectedCorresponsal?.id ?? null);
+                }}
               >
                 <option value="">Seleccionar corresponsal...</option>
                 {corresponsales.map((c) => (
@@ -182,6 +198,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
                 {errors.corresponsal.message}
               </p>
             )}
+            <input type="hidden" {...register("corresponsalId")} />
           </div>
 
           <div>
