@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { formatDateArgentina } from "@/lib/dates";
 
 interface UserRow {
   id: number;
@@ -133,9 +134,7 @@ export default function UsuariosTable({ initialUsers, currentUserId }: UsuariosT
                       )}
                     </td>
                     <td className="px-4 py-3 text-gray-500 text-xs">
-                      {user.createdAt
-                        ? new Date(user.createdAt).toLocaleDateString("es-AR")
-                        : "—"}
+                      {formatDateArgentina(user.createdAt ? user.createdAt.toISOString() : null)}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">

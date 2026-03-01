@@ -5,6 +5,7 @@ import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { casoSchema, type CasoFormData, ESTADOS_INTERNOS, ESTADOS_CASO } from "@/lib/validations";
+import { formatCurrencyArgentina } from "@/lib/dates";
 import type { Caso, Corresponsal } from "@/db/schema";
 import CountrySelect from "./CountrySelect";
 
@@ -279,7 +280,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-green-800">Total USD</span>
               <span className="text-lg font-bold text-green-700">
-                ${totalUsd.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                {formatCurrencyArgentina(totalUsd, "$")}
               </span>
             </div>
           </div>

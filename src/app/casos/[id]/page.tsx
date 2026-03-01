@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ESTADO_INTERNO_COLORS, ESTADO_CASO_COLORS, getCountryFlag } from "@/lib/validations";
+import { formatDateArgentina, formatDateTimeArgentina, formatCurrencyArgentina, formatUsdArgentina } from "@/lib/dates";
 import CasoDetailActions from "@/components/CasoDetailActions";
 
 export const dynamic = "force-dynamic";
@@ -57,26 +58,15 @@ function BoolField({ label, value }: { label: string; value: boolean | null }) {
 }
 
 function formatDate(date: string | null) {
-  if (!date) return "—";
-  try {
-    return new Date(date + "T00:00:00").toLocaleDateString("es-AR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-  } catch {
-    return date;
-  }
+  return formatDateArgentina(date);
 }
 
 function formatCurrency(value: number | null, symbol?: string | null) {
-  if (value === null || value === undefined) return "—";
-  return `${symbol || "$"} ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return formatCurrencyArgentina(value, symbol || "$");
 }
 
 function formatUsd(value: number | null) {
-  if (value === null || value === undefined) return "—";
-  return `USD ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return formatUsdArgentina(value);
 }
 
 function calculateTotalUsd(caso: typeof casos.$inferSelect) {
@@ -165,7 +155,7 @@ export default async function CasoDetailPage({ params }: PageProps) {
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <dt className="text-xs font-medium text-green-600 uppercase tracking-wide">Total USD</dt>
             <dd className="mt-1 text-xl font-bold text-green-700 font-mono">
-              ${calculateTotalUsd(caso).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {formatCurrencyArgentina(calculateTotalUsd(caso), "$")}
             </dd>
           </div>
           <Field label="Costo Moneda Local" value={formatCurrency(caso.costoMonedaLocal, caso.simboloMoneda)} mono />
@@ -272,7 +262,7 @@ export default async function CasoDetailPage({ params }: PageProps) {
             <div>
               <dt className="text-xs font-medium text-gray-400 uppercase tracking-wide">Fecha de Creación</dt>
               <dd className="mt-1 text-sm text-gray-900">
-                {caso.createdAt ? new Date(caso.createdAt).toLocaleString("es-AR") : "—"}
+                {formatDateTimeArgentina(caso.createdAt)}
               </dd>
             </div>
           </div>
@@ -285,7 +275,7 @@ export default async function CasoDetailPage({ params }: PageProps) {
             <div>
               <dt className="text-xs font-medium text-gray-400 uppercase tracking-wide">Última Edición</dt>
               <dd className="mt-1 text-sm text-gray-900">
-                {caso.updatedAt ? new Date(caso.updatedAt).toLocaleString("es-AR") : "—"}
+                {formatDateTimeArgentina(caso.updatedAt)}
               </dd>
               {caso.updatedBy && (
                 <dd className="mt-1 text-xs text-gray-500">

@@ -11,6 +11,7 @@ import {
   ESTADOS_CASO,
   getCountryFlag,
 } from "@/lib/validations";
+import { formatDateArgentina, formatCurrencyArgentina, formatUsdArgentina } from "@/lib/dates";
 import DeleteModal from "./DeleteModal";
 
 interface CasosTableProps {
@@ -155,13 +156,11 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
   };
 
   const formatCurrency = (value: number | null, symbol?: string | null) => {
-    if (value === null || value === undefined) return "—";
-    return `${symbol || "$"} ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return formatCurrencyArgentina(value, symbol || "$");
   };
 
   const formatUsd = (value: number | null) => {
-    if (value === null || value === undefined) return "—";
-    return `USD ${value.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return formatUsdArgentina(value);
   };
 
   const calculateTotalUsd = (caso: Caso) => {
@@ -172,16 +171,7 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
   };
 
   const formatDate = (date: string | null) => {
-    if (!date) return "—";
-    try {
-      return new Date(date + "T00:00:00").toLocaleDateString("es-AR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      });
-    } catch {
-      return date;
-    }
+    return formatDateArgentina(date);
   };
 
   return (

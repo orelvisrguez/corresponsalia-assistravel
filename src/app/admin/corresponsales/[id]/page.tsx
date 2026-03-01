@@ -4,6 +4,7 @@ import { corresponsales } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { getCountryFlag } from "@/lib/validations";
+import { formatDateArgentina } from "@/lib/dates";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -100,8 +101,8 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
         )}
 
         <div className="text-sm text-gray-500 pt-4 border-t">
-          <p>Creado: {corresponsal.createdAt?.toLocaleDateString()}</p>
-          <p>Actualizado: {corresponsal.updatedAt?.toLocaleDateString()}</p>
+          <p>Creado: {corresponsal.createdAt ? formatDateArgentina(corresponsal.createdAt.toISOString()) : "—"}</p>
+          <p>Actualizado: {corresponsal.updatedAt ? formatDateArgentina(corresponsal.updatedAt.toISOString()) : "—"}</p>
         </div>
       </div>
     </div>
