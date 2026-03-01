@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { casoSchema, type CasoFormData, ESTADOS_INTERNOS, ESTADOS_CASO } from "@/lib/validations";
@@ -44,8 +44,8 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<CasoFormData>({
-    resolver: standardSchemaResolver(casoSchema),
+  } = useForm({
+    resolver: zodResolver(casoSchema),
     defaultValues: caso
       ? {
           corresponsal: caso.corresponsal,
