@@ -74,6 +74,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
     - When the change was made
     - Grouped by date for better readability
     - Collapsible section with counter badge
+- [x] **Auto-calculate due date** - When adding invoice issue date, due date is automatically calculated as +30 days:
 - [x] **Corresponsales CRUD modernized** - List page and form updated:
   - Modern stats cards at top (Total, Activos, Inactivos)
   - CorresponsalesTable with modern filter bar and table design
