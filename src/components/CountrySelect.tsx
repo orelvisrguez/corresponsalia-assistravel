@@ -140,7 +140,12 @@ export default function CountrySelect({
       {/* Dropdown content */}
       {isOpen && (
         <div 
-          className="absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden"
+          className="absolute z-[100] w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden"
+          style={{ 
+            top: '100%',
+            left: 0,
+            right: 0
+          }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Search input */}
