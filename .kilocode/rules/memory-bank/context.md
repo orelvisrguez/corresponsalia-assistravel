@@ -88,6 +88,18 @@ The application is a complete CRUD system for managing medical/insurance cases (
   - Increased z-index from 50 to 100
   - Added explicit top/left/right positioning
   - Changed shadow from shadow-lg to shadow-xl
+- [x] **Professional Dashboard** - Complete dashboard with charts and real-time data:
+  - Installed recharts and lucide-react for visualizations
+  - Created /api/dashboard route with aggregated statistics
+  - Filter system: semanal, quincenal, mensual, trimestral, semestral, anual
+  - Stats cards: Total casos, Casos abiertos, Corresponsales activos, Fee total
+  - Financial summary: Fee, Costo USD, Monto Agregado in period (gradient cards)
+  - Line chart: Monthly cases for last 12 months
+  - Pie charts: Estado Interno and Estado Caso distributions
+  - Bar chart: Cases by country
+  - Top Corresponsales table with cases and fee
+  - Recent cases table with quick links
+  - Auto-refresh every 60 seconds
 
 ## Current Structure
 
@@ -132,6 +144,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 | `src/components/CorresponsalesTable.tsx` | Corresponsales table with filters | ✅ Ready |
 | `src/components/CorresponsalForm.tsx` | Create/edit corresponsal form | ✅ Ready |
 | `src/components/CountrySelect.tsx` | Country dropdown with search | ✅ Ready |
+| `src/components/Dashboard.tsx` | Main dashboard with charts and real-time data | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
 ## Database Schema
@@ -162,3 +175,4 @@ Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, c
 | 2026-03-01 | Corresponsales detail page with cases statistics and related cases list |
 | 2026-03-01 | CountrySelect with search and custom country support, fix flag display |
 | 2026-03-01 | CountrySelect dropdown visibility fix - increased z-index and explicit positioning |
+| 2026-03-01 | Professional Dashboard with charts and real-time data - filter system, stats cards, line/pie/bar charts, auto-refresh |
