@@ -4,18 +4,18 @@ import * as schema from "./schema";
 
 // Create Turso client using environment variables
 const createTursoClient = () => {
-  const url = process.env.DB_URL;
-  const token = process.env.DB_TOKEN;
+  const url = process.env.DATABASE_URL;
+  const token = process.env.DATABASE_TOKEN;
   
   if (!url || !token) {
     // During build time, return a dummy client
     // The real client will be created at runtime
     if (process.env.NODE_ENV === "production") {
-      console.warn("DB_URL and DB_TOKEN not set - database will be unavailable during build");
+      console.warn("DATABASE_URL and DATABASE_TOKEN not set - database will be unavailable during build");
       return null;
     }
     throw new Error(
-      "Missing database configuration. Please set DB_URL and DB_TOKEN environment variables."
+      "Missing database configuration. Please set DATABASE_URL and DATABASE_TOKEN environment variables."
     );
   }
   

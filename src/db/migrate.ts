@@ -6,12 +6,12 @@ import { migrate } from "drizzle-orm/libsql/migrator";
 import * as schema from "./schema";
 
 async function runMigrations() {
-  const url = process.env.DB_URL;
-  const token = process.env.DB_TOKEN;
+  const url = process.env.DATABASE_URL;
+  const token = process.env.DATABASE_TOKEN;
   
   if (!url || !token) {
     throw new Error(
-      "Missing database configuration. Please set DB_URL and DB_TOKEN environment variables."
+      "Missing database configuration. Please set DATABASE_URL and DATABASE_TOKEN environment variables."
     );
   }
   
