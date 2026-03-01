@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ESTADO_INTERNO_COLORS, ESTADO_CASO_COLORS, getCountryCode, isCustomCountry } from "@/lib/validations";
 import { formatDateArgentina, formatDateTimeArgentina, formatCurrencyArgentina, formatUsdArgentina } from "@/lib/dates";
 import CasoDetailActions from "@/components/CasoDetailActions";
+import CasoCambios from "@/components/CasoCambios";
 
 export const dynamic = "force-dynamic";
 
@@ -305,6 +306,10 @@ export default async function CasoDetailPage({ params }: PageProps) {
             </div>
           </div>
         </dl>
+        {/* Historial de Cambios */}
+        <div className="mt-4 pt-4 border-t border-slate-200">
+          <CasoCambios casoId={caso.id} />
+        </div>
       </div>
     </div>
   );

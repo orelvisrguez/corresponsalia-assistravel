@@ -78,4 +78,19 @@ export const users = sqliteTable("users", {
 });
 
 export type User = typeof users.$inferSelect;
+
+export const casoCambios = sqliteTable("caso_cambios", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  casoId: integer("caso_id").notNull().references(() => casos.id, { onDelete: "cascade" }),
+  campo: text("campo").notNull(),
+  valorAnterior: text("valor_anterior"),
+  valorNuevo: text("valor_nuevo"),
+  modificadoPor: text("modificado_por"),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
+    () => new Date()
+  ),
+});
+
+export type CasoCambio = typeof casoCambios.$inferSelect;
+export type NewCasoCambio = typeof casoCambios.$inferInsert;
 export type NewUser = typeof users.$inferInsert;

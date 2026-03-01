@@ -130,3 +130,29 @@ export function isCustomCountry(countryNameOrCode: string): boolean {
     (c) => c.name === countryNameOrCode || c.code === countryNameOrCode
   );
 }
+
+// Field labels for change history
+export const CAMPO_LABELS: Record<string, string> = {
+  corresponsal: "Corresponsal",
+  corresponsalId: "ID Corresponsal",
+  nroCasoAssistravel: "Nro. Caso Assistravel",
+  nroCasoCorresponsal: "Nro. Caso Corresponsal",
+  fechaInicio: "Fecha de Inicio",
+  pais: "País",
+  fee: "Fee",
+  costoUsd: "Costo USD",
+  montoAgregado: "Monto Agregado",
+  costoMonedaLocal: "Costo Moneda Local",
+  simboloMoneda: "Símbolo Moneda",
+  informeMedico: "Informe Médico",
+  tieneFactura: "Tiene Factura",
+  fechaEmisionFactura: "Fecha Emisión Factura",
+  fechaVencimientoFactura: "Fecha Vencimiento Factura",
+  fechaPagoFactura: "Fecha Pago Factura",
+  nroFactura: "Nro. Factura",
+  estadoInterno: "Estado Interno",
+  estadoCaso: "Estado del Caso",
+  observaciones: "Observaciones",
+  createdBy: "Creado por",
+  updatedBy: "Actualizado por",
+};
