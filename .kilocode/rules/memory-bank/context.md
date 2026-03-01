@@ -62,6 +62,11 @@ The application is a complete CRUD system for managing medical/insurance cases (
   - Modern stats cards at top (Total, Activos, Inactivos)
   - CorresponsalesTable with modern filter bar and table design
   - CorresponsalForm with modern inputs and styling
+- [x] **CountrySelect with search** - Improved dropdown component:
+  - Added search functionality with icon
+  - Added support for custom countries not in predefined list
+  - Fixed dropdown closing issue by adding stopPropagation
+  - Uses flagcdn.com for flag images instead of emojis
 
 ## Current Structure
 
@@ -105,6 +110,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 | `src/components/UsuarioForm.tsx` | Create/edit user form | ✅ Ready |
 | `src/components/CorresponsalesTable.tsx` | Corresponsales table with filters | ✅ Ready |
 | `src/components/CorresponsalForm.tsx` | Create/edit corresponsal form | ✅ Ready |
+| `src/components/CountrySelect.tsx` | Country dropdown with search | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
 ## Database Schema
@@ -133,3 +139,4 @@ Fields: id, nombre, email, telefono, pais, direccion, contacto, notas, activo, c
 | 2026-03-01 | Corresponsales module with CRUD + integration with cases form |
 | 2026-03-01 | Case registration info block (createdBy, updatedBy) |
 | 2026-03-01 | Corresponsales detail page with cases statistics and related cases list |
+| 2026-03-01 | CountrySelect with search and custom country support, fix flag display |
