@@ -28,6 +28,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 - [x] Login page with form
 - [x] Auth API routes (POST /api/auth/login, POST /api/auth/logout)
 - [x] Middleware for route protection
+- [x] Fixed Edge Middleware deployment issue (proxy.ts with default export)
 - [x] User management module (admin only) at /admin/usuarios
 - [x] User CRUD API routes at /api/usuarios
 - [x] UserMenu component with logout and role display
