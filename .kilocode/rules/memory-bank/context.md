@@ -41,6 +41,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 - [x] CasoForm now uses dropdown with active corresponsales
 - [x] Country dropdown with flag emojis in forms and tables
 - [x] Case registration info block (createdBy, updatedBy, createdAt, updatedAt)
+- [x] Argentina timezone (America/Argentina/Buenos_Aires) for all date formatting
 
 ## Current Structure
 
