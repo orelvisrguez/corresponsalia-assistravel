@@ -3,7 +3,7 @@ import { casos } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ESTADO_INTERNO_COLORS, ESTADO_CASO_COLORS } from "@/lib/validations";
+import { ESTADO_INTERNO_COLORS, ESTADO_CASO_COLORS, getCountryFlag } from "@/lib/validations";
 import CasoDetailActions from "@/components/CasoDetailActions";
 
 export const dynamic = "force-dynamic";
@@ -144,7 +144,7 @@ export default async function CasoDetailPage({ params }: PageProps) {
           <Field label="Nro Caso Assistravel" value={caso.nroCasoAssistravel} mono />
           <Field label="Nro Caso Corresponsal" value={caso.nroCasoCorresponsal} mono />
           <Field label="Fecha Inicio" value={formatDate(caso.fechaInicio)} />
-          <Field label="País" value={caso.pais} />
+          <Field label="País" value={caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : ""} />
         </dl>
       </div>
 

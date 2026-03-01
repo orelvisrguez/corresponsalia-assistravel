@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CorresponsalFormData, corresponsalSchema } from "@/lib/validations";
 import { Corresponsal } from "@/db/schema";
 import Link from "next/link";
+import CountrySelect from "./CountrySelect";
 
 interface CorresponsalFormProps {
   corresponsal?: Corresponsal;
@@ -19,6 +20,8 @@ export default function CorresponsalForm({ corresponsal, onSuccess }: Correspons
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<CorresponsalFormData>({
     resolver: zodResolver(corresponsalSchema),
@@ -120,9 +123,9 @@ export default function CorresponsalForm({ corresponsal, onSuccess }: Correspons
           <label className="block text-sm font-medium text-gray-700 mb-1">
             País
           </label>
-          <input
-            {...register("pais")}
-            type="text"
+          <CountrySelect
+            value={watch("pais") || ""}
+            onChange={(value) => setValue("pais", value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>

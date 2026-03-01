@@ -62,3 +62,51 @@ export const corresponsalSchema = z.object({
 });
 
 export type CorresponsalFormData = z.infer<typeof corresponsalSchema>;
+
+// Country list with ISO codes and flag emojis
+export const COUNTRIES = [
+  { code: "AR", name: "Argentina", flag: "🇦🇷" },
+  { code: "BO", name: "Bolivia", flag: "🇧🇴" },
+  { code: "BR", name: "Brasil", flag: "🇧🇷" },
+  { code: "CL", name: "Chile", flag: "🇨🇱" },
+  { code: "CO", name: "Colombia", flag: "🇨🇴" },
+  { code: "CR", name: "Costa Rica", flag: "🇨🇷" },
+  { code: "CU", name: "Cuba", flag: "🇨🇺" },
+  { code: "DO", name: "República Dominicana", flag: "🇩🇴" },
+  { code: "EC", name: "Ecuador", flag: "🇪🇨" },
+  { code: "SV", name: "El Salvador", flag: "🇸🇻" },
+  { code: "GT", name: "Guatemala", flag: "🇬🇹" },
+  { code: "HN", name: "Honduras", flag: "🇭🇳" },
+  { code: "MX", name: "México", flag: "🇲🇽" },
+  { code: "NI", name: "Nicaragua", flag: "🇳🇮" },
+  { code: "PA", name: "Panamá", flag: "🇵🇦" },
+  { code: "PY", name: "Paraguay", flag: "🇵🇾" },
+  { code: "PE", name: "Perú", flag: "🇵🇪" },
+  { code: "PR", name: "Puerto Rico", flag: "🇵🇷" },
+  { code: "UY", name: "Uruguay", flag: "🇺🇾" },
+  { code: "VE", name: "Venezuela", flag: "🇻🇪" },
+  { code: "US", name: "Estados Unidos", flag: "🇺🇸" },
+  { code: "CA", name: "Canadá", flag: "🇨🇦" },
+  { code: "ES", name: "España", flag: "🇪🇸" },
+  { code: "IT", name: "Italia", flag: "🇮🇹" },
+  { code: "PT", name: "Portugal", flag: "🇵🇹" },
+  { code: "FR", name: "Francia", flag: "🇫🇷" },
+  { code: "DE", name: "Alemania", flag: "🇩🇪" },
+  { code: "GB", name: "Reino Unido", flag: "🇬🇧" },
+  { code: "CN", name: "China", flag: "🇨🇳" },
+  { code: "JP", name: "Japón", flag: "🇯🇵" },
+  { code: "KR", name: "Corea del Sur", flag: "🇰🇷" },
+  { code: "IN", name: "India", flag: "🇮🇳" },
+  { code: "AU", name: "Australia", flag: "🇦🇺" },
+] as const;
+
+export type Country = typeof COUNTRIES[number];
+
+// Get country flag emoji by country name or code
+export function getCountryFlag(countryNameOrCode: string): string {
+  if (!countryNameOrCode) return "";
+  const country = COUNTRIES.find(
+    (c) => c.name === countryNameOrCode || c.code === countryNameOrCode
+  );
+  return country?.flag || "";
+}

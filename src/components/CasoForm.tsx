@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { casoSchema, type CasoFormData, ESTADOS_INTERNOS, ESTADOS_CASO } from "@/lib/validations";
 import type { Caso, Corresponsal } from "@/db/schema";
+import CountrySelect from "./CountrySelect";
 
 interface CasoFormProps {
   caso?: Caso;
@@ -40,6 +41,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<CasoFormData>({
     resolver: standardSchemaResolver(casoSchema),
@@ -220,10 +222,10 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
 
           <div>
             <label className={labelClass}>País</label>
-            <input
-              {...register("pais")}
+            <CountrySelect
+              value={watch("pais") || ""}
+              onChange={(value) => setValue("pais", value)}
               className={inputClass()}
-              placeholder="Ej: Argentina"
             />
           </div>
         </div>

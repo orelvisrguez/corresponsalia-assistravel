@@ -9,6 +9,7 @@ import {
   ESTADO_CASO_ROW_COLORS,
   ESTADOS_INTERNOS,
   ESTADOS_CASO,
+  getCountryFlag,
 } from "@/lib/validations";
 import DeleteModal from "./DeleteModal";
 
@@ -348,7 +349,7 @@ export default function CasosTable({ initialCasos }: CasosTableProps) {
                       {formatDate(caso.fechaInicio)}
                     </td>
                     <td className="px-4 py-3 text-gray-600">
-                      {caso.pais || "—"}
+                      {caso.pais ? `${getCountryFlag(caso.pais)} ${caso.pais}` : "—"}
                     </td>
                     <td className="px-4 py-3 text-right font-medium text-gray-900 whitespace-nowrap">
                       {formatUsd(calculateTotalUsd(caso))}

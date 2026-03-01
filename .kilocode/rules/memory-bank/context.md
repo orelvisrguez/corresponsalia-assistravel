@@ -39,6 +39,7 @@ The application is a complete CRUD system for managing medical/insurance cases (
 - [x] Corresponsales API routes at /api/corresponsales
 - [x] Admin pages for managing corresponsales at /admin/corresponsales
 - [x] CasoForm now uses dropdown with active corresponsales
+- [x] Country dropdown with flag emojis in forms and tables
 
 ## Current Structure
 

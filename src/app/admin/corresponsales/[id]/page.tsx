@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { corresponsales } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { getCountryFlag } from "@/lib/validations";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -62,7 +63,7 @@ export default async function CorresponsalDetailPage({ params }: PageProps) {
 
           <div>
             <h3 className="text-sm font-medium text-gray-500">País</h3>
-            <p className="mt-1 text-gray-900">{corresponsal.pais || "-"}</p>
+            <p className="mt-1 text-gray-900">{corresponsal.pais ? `${getCountryFlag(corresponsal.pais)} ${corresponsal.pais}` : "-"}</p>
           </div>
 
           <div>

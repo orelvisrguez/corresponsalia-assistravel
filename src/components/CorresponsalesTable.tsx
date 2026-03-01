@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Corresponsal } from "@/db/schema";
+import { getCountryFlag } from "@/lib/validations";
 
 interface CorresponsalesTableProps {
   corresponsales: Corresponsal[];
@@ -109,7 +110,7 @@ export default function CorresponsalesTable({ corresponsales: initialCorresponsa
                   </td>
                   <td className="px-4 py-3 text-gray-600">{corresponsal.email || "-"}</td>
                   <td className="px-4 py-3 text-gray-600">{corresponsal.telefono || "-"}</td>
-                  <td className="px-4 py-3 text-gray-600">{corresponsal.pais || "-"}</td>
+                  <td className="px-4 py-3 text-gray-600">{corresponsal.pais ? `${getCountryFlag(corresponsal.pais)} ${corresponsal.pais}` : "-"}</td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-1 text-xs rounded-full ${
                       corresponsal.activo 
