@@ -94,6 +94,22 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
   }, [caso, corresponsales, setValue]);
 
   const tieneFactura = watch("tieneFactura");
+  const fechaEmisionFactura = watch("fechaEmisionFactura");
+
+  // Auto-calculate due date (30 days after issue date)
+  useEffect(() => {
+    if (fechaEmisionFactura) {
+      const issueDate = new Date(fechaEmisionFactura);
+      const dueDate = new Date(issueDate);
+      dueDate.setDate(dueDate.getDate() + 30);
+      
+      // Format as YYYY-MM-DD for the date input
+      const year = dueDate.getFullYear();
+      const month = String(dueDate.getMonth() + 1).padStart(2, '0');
+      const day = String(dueDate.getDate()).padStart(2, '0');
+      setValue("fechaVencimientoFactura", `${year}-${month}-${day}`);
+    }
+  }, [fechaEmisionFactura, setValue]);
 
   // Calculate total USD - convert to numbers to avoid string concatenation
   const fee = Number(watch("fee")) || 0;
@@ -388,7 +404,7 @@ export default function CasoForm({ caso, mode }: CasoFormProps) {
                 />
               </div>
               <div>
-                <label className={labelClass}>Fecha Vencimiento</label>
+                <label className={labelClass}>Fecha Vencimiento <span className="text-xs text-gray-400">(auto)</span></label>
                 <input
                   type="date"
                   {...register("fechaVencimientoFactura")}
