@@ -58,6 +58,22 @@ The application is a complete CRUD system for managing medical/insurance cases (
   - Contact information section with icons
   - Full list of related cases with modern table design
   - Financial totals for each case
+- [x] **CountrySelect dropdown fix** - Fixed dropdown being hidden:
+  - Increased z-index from 50 to 100
+  - Added explicit top/left/right positioning
+  - Changed shadow from shadow-lg to shadow-xl
+- [x] **Case change history tracking** - Historial de cambios:
+  - Added caso_cambios table to database (campo, valorAnterior, valorNuevo, modificadoPor, createdAt)
+  - Updated PUT /api/casos/[id] to capture and store field changes
+  - Added GET /api/casos/[id]/cambios endpoint for fetching change history
+  - Added CasoCambios component in case detail page showing:
+    - Field name that was changed (e.g., "Estado Interno", "Fee", "País")
+    - Previous value (in red)
+    - New value (in green)
+    - Who made the change
+    - When the change was made
+    - Grouped by date for better readability
+    - Collapsible section with counter badge
 - [x] **Corresponsales CRUD modernized** - List page and form updated:
   - Modern stats cards at top (Total, Activos, Inactivos)
   - CorresponsalesTable with modern filter bar and table design
